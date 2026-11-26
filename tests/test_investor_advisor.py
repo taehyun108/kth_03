@@ -86,3 +86,36 @@ def test_split_message_respects_limit():
     parts = ia.split_message(long, 1000)
     assert len(parts) > 1 and all(len(p) <= 1000 for p in parts)
     assert "".join(p.replace("\n", "") for p in parts) == long.replace("\n", "")
+
+
+def test_icons_loaded_from_files():
+    assert [i.icon for i in ia.load_investors()] == ["🎩", "🧠", "🛡️", "🚀"]
+
+
+def test_facts_are_put_into_prompt_with_quote_rule():
+    inv = ia.load_investors()[0]
+    p = ia.build_prompt(inv, "SK하이닉스", facts_text=ia.facts_to_text(
+        {"ROE(자기자본이익률)": "92.5%", "PER(주가수익비율)": "2.1배", "빈값": ""}))
+    assert "[확정 수치]" in p and "- ROE(자기자본이익률): 92.5%" in p and "- PER(주가수익비율): 2.1배" in p
+    assert "빈값" not in p and "이 값 그대로" in p
+    assert "[확정 수치]" not in ia.build_prompt(inv, "SK하이닉스")
+
+
+def test_facts_reach_every_investor_call():
+    seen = []
+
+    def llm(prompt):
+        seen.append(prompt)
+        return GOOD
+
+    ia.analyze_target("SK하이닉스", llm, ia.load_investors(), facts={"PER": "2.1배"})
+    assert len(seen) == 4 and all("- PER: 2.1배" in p for p in seen)
+
+
+def test_briefing_block_format():
+    ops = ia.analyze_target("삼성전자", fake_llm, ia.load_investors())
+    block = ia.format_briefing_lines(ops)
+    lines = block.splitlines()
+    assert lines[0].strip() == "├ ─── 투자 대가 4인의 판단 ───"
+    assert lines[1].strip().startswith("├ 🎩 워런 버핏 : ✅ 매수 — 해자가 넓다")
+    assert lines[-1].strip().startswith("└ 🚀 피터 린치")

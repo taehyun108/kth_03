@@ -77,6 +77,7 @@ class Investor:
     key: str        # 파일 이름에서 번호를 뺀 값 (warren_buffett)
     name: str       # 첫 줄 '# 워런 버핏'
     template: str   # [종목] 자리표시자가 들어 있는 프롬프트 본문
+    icon: str = "👤"  # 선택. 이름 아래 'icon: 🎩' 줄로 지정 (아침 브리핑 표시용)
 
 
 def load_investors(directory: Path = INVESTORS_DIR) -> list[Investor]:
@@ -87,18 +88,33 @@ def load_investors(directory: Path = INVESTORS_DIR) -> list[Investor]:
         if len(lines) < 2 or not lines[0].startswith("#"):
             logger.warning("투자자 파일 형식 오류(첫 줄이 '# 이름' 이어야 함): %s", path.name)
             continue
-        template = "\n".join(lines[1:]).strip()
+        body, icon = lines[1:], "👤"
+        while body and (m := re.match(r"^\s*icon\s*[:：]\s*(.+?)\s*$", body[0], re.I)):
+            icon, body = m.group(1), body[1:]
+        template = "\n".join(body).strip()
         if "[종목]" not in template:
             logger.warning("투자자 파일에 [종목] 이 없어 건너뜀: %s", path.name)
             continue
         key = re.sub(r"^\d+_", "", path.stem)
-        investors.append(Investor(key=key, name=lines[0].lstrip("# ").strip(), template=template))
+        investors.append(Investor(key=key, name=lines[0].lstrip("# ").strip(),
+                                  template=template, icon=icon))
     return investors
 
 
-def build_prompt(investor: Investor, target: str, context: str = "") -> str:
+def facts_to_text(facts: Optional[dict]) -> str:
+    """{'ROE(자기자본이익률)': '92.5%', 'PER': '2.1배'} -> 줄 목록. 값이 비면 건너뛴다."""
+    return "\n".join(f"- {k}: {v}" for k, v in (facts or {}).items() if str(v).strip())
+
+
+FACTS_RULE = ("[확정 수치]는 화면에 함께 표시되는 값이야. 수치를 말할 때는 반드시 이 값 그대로 쓰고, "
+              "이 값과 다른 숫자(예: 다른 PER·ROE·부채비율)를 만들어 쓰지 마. 목록에 없는 수치는 '확인 필요'라고 해.")
+
+
+def build_prompt(investor: Investor, target: str, context: str = "", facts_text: str = "") -> str:
     today = datetime.now(KST).strftime("%Y-%m-%d")
     parts = [investor.template.replace("[종목]", target), f"\n오늘 날짜: {today} (한국 시간)"]
+    if facts_text.strip():
+        parts.append(f"\n[확정 수치]\n{facts_text.strip()}\n{FACTS_RULE}")
     if context.strip():
         parts.append(f"\n[참고 자료]\n{context.strip()}")
     parts.append(ANSWER_RULES)
@@ -133,13 +149,14 @@ def resolve_targets(query: str, llm: LLM, max_targets: int = MAX_SECTOR_TARGETS)
 @dataclass
 class Opinion:
     investor: str
+    icon: str = "👤"
     verdict: str = "판단불가"          # 사자 / 팔자 / 중립 / 판단불가
     confidence: Optional[int] = None
     reasons: list[str] = field(default_factory=list)
     error: str = ""
 
 
-def parse_opinion(investor: str, text: str) -> Opinion:
+def parse_opinion(investor: str, text: str, icon: str = "👤") -> Opinion:
     """모델 답변에서 판정·확신도·이유를 읽는다. 형식이 어긋나면 '판단불가'로 둔다."""
     clean = (text or "").replace("**", "").replace("__", "")
     verdicts = re.findall(r"판정\s*[:：]\s*\[?\s*(사자|팔자|중립)", clean)
@@ -151,9 +168,10 @@ def parse_opinion(investor: str, text: str) -> Opinion:
         if m:
             reasons.append(m.group(1).strip())
     if not verdicts:
-        return Opinion(investor=investor, error="판정을 읽지 못함", reasons=reasons[:3])
+        return Opinion(investor=investor, icon=icon, error="판정을 읽지 못함", reasons=reasons[:3])
     return Opinion(
         investor=investor,
+        icon=icon,
         verdict=verdicts[-1],
         confidence=min(int(confs[-1]), 100) if confs else None,
         reasons=reasons[:3],
@@ -161,8 +179,12 @@ def parse_opinion(investor: str, text: str) -> Opinion:
 
 
 def analyze_target(target: str, llm: LLM, investors: list[Investor],
-                   context_fn: Optional[ContextFn] = None) -> list[Opinion]:
-    """한 종목에 대해 투자자 전원의 의견을 모은다. 한 명이 실패해도 나머지는 계속된다."""
+                   context_fn: Optional[ContextFn] = None,
+                   facts: Optional[dict] = None) -> list[Opinion]:
+    """한 종목에 대해 투자자 전원의 의견을 모은다. 한 명이 실패해도 나머지는 계속된다.
+
+    facts: 화면에 같이 보여 줄 확정 수치(PER·ROE 등). 주면 의견이 이 값만 인용한다."""
+    facts_text = facts_to_text(facts)
     context = ""
     if context_fn:
         try:
@@ -172,10 +194,10 @@ def analyze_target(target: str, llm: LLM, investors: list[Investor],
 
     def ask(inv: Investor) -> Opinion:
         try:
-            return parse_opinion(inv.name, llm(build_prompt(inv, target, context)))
+            return parse_opinion(inv.name, llm(build_prompt(inv, target, context, facts_text)), inv.icon)
         except Exception as exc:
             logger.warning("%s 의견 생성 실패", inv.name, exc_info=True)
-            return Opinion(investor=inv.name, error=f"{type(exc).__name__}")
+            return Opinion(investor=inv.name, icon=inv.icon, error=f"{type(exc).__name__}")
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         return list(pool.map(ask, investors))
@@ -195,6 +217,25 @@ def format_target(target: str, opinions: list[Opinion]) -> str:
             lines.append(f"   {i}. {reason}")
         lines.append("")
     return "\n".join(lines).rstrip()
+
+
+# 아침 브리핑의 기존 표기(✅ 매수 / ⚠️ 관망)에 맞춘 라벨
+BRIEFING_LABEL = {"사자": "✅ 매수", "중립": "⚠️ 관망", "팔자": "❌ 매도", "판단불가": "❔ 판단불가"}
+
+
+def format_briefing_lines(opinions: list[Opinion], indent: str = "  ", reasons: int = 1) -> str:
+    """아침 브리핑 종목 아래에 붙일 '투자 대가 N인의 판단' 블록.
+
+      ├ 🎩 워런 버핏 : ✅ 매수 — 이유
+      └ 🚀 피터 린치 : ⚠️ 관망 — 이유
+    """
+    out = [f"{indent}├ ─── 투자 대가 {len(opinions)}인의 판단 ───"]
+    for i, o in enumerate(opinions):
+        branch = "└" if i == len(opinions) - 1 else "├"
+        why = " ".join(o.reasons[:reasons]) if o.reasons else (o.error or "")
+        out.append(f"{indent}{branch} {o.icon} {o.investor} : {BRIEFING_LABEL.get(o.verdict, o.verdict)}"
+                   + (f" — {why}" if why else ""))
+    return "\n".join(out)
 
 
 def split_message(text: str, limit: int = TELEGRAM_LIMIT) -> list[str]:

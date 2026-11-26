@@ -36,6 +36,26 @@ if query:
     return
 ```
 
+## 아침 브리핑에 붙이기
+브리핑의 종목별 "투자 대가 N인의 판단" 부분을 아래로 바꿉니다. **표에 찍는 수치를 `facts` 로 같이
+넘기면** 투자자 의견이 그 값만 인용하므로, 표와 코멘트의 수치가 어긋나지 않습니다.
+투자자를 추가하면 브리핑도 자동으로 N인이 됩니다.
+
+```python
+from investor_advisor import analyze_target, load_investors, format_briefing_lines
+
+investors = load_investors()                       # 한 번만 읽어 두고 재사용
+facts = {"ROE(자기자본이익률)": "92.5%", "PER(주가수익비율)": "2.1배",
+         "PBR(주가순자산비율)": "2.2배", "부채비율": "5.9%", "EPS(주당순이익)": "21,500원",
+         "현재가": "1,144,000원", "목표주가": "3,056,126원 (+167.1%)"}   # 표와 같은 값
+opinions = analyze_target("SK하이닉스", llm_call, investors, facts=facts)
+block = format_briefing_lines(opinions)            # ├ 🎩 워런 버핏 : ✅ 매수 — 이유 …
+```
+호출 수 = 종목 수 × 투자자 수 (5종목 × 5인 = 25회). 한도에 걸리면 `MAX_WORKERS` 를 줄이세요.
+
+## 투자자 파일 형식
+첫 줄 `# 이름`, 선택으로 `icon: 🎩`(브리핑 표시용), 그 아래가 프롬프트입니다.
+
 ## 설정값 (`investor_advisor.py` 위쪽)
 | 이름 | 기본 | 뜻 |
 |---|---|---|
