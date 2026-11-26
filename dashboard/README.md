@@ -1,7 +1,7 @@
-# Economy Begin 대시보드 (1단계: 수집·순위 / 2단계: 종목 조회·투자자 판단)
+# Economy Begin 대시보드 (1단계: 수집·순위 / 2단계: 종목 조회·투자자 판단 / 3단계: 시장 토론)
 
 한국 주식(코스피·코스닥 161개 종목)의 **거래량 순위**와 **산업별 거래대금**을 보여 주는 웹 화면입니다.
-3단계(시장 토론)는 아직 자리만 있습니다. 좌측 상단 '오늘의 명언'은 4단계에서 채웁니다.
+좌측 상단 '오늘의 명언'은 4단계에서 채웁니다.
 
 ```
 GitHub Actions (장중 5분마다)  →  Supabase(quotes_latest)  →  Vercel(Next.js 화면)
@@ -61,7 +61,7 @@ python collector/collect_quotes.py --out data/snapshot.sample.json
 | 어디에 | 이름 | 값 |
 |---|---|---|
 | Vercel 환경변수 | `NVIDIA_API_KEY` (여러 개면 `NVIDIA_API_KEY_2`, `_3` …) | build.nvidia.com 에서 받은 키 |
-| Vercel 환경변수 (선택) | `NVIDIA_MODEL`, `AI_DAILY_CAP` | 모델 이름, 하루 호출 상한(기본 200) |
+| Vercel 환경변수 (선택) | `NVIDIA_MODEL`, `AI_DAILY_CAP` | 모델 이름, 하루 호출 상한(기본 300) |
 | GitHub 시크릿 | `NVIDIA_API_KEY` (`_2`, `_3` …) | 같은 키 |
 | GitHub 변수 (선택) | `NVIDIA_MODEL`, `AI_DAILY_CAP`, `JUDGE_TOP_N` | 비우면 기본값 (상위 20종목) |
 
@@ -79,6 +79,18 @@ Supabase SQL Editor 에서 **`supabase/schema.sql` 을 다시 실행**하세요 
 npm run sync-investors
 ```
 
+## 2-5. 3단계 설정: 시장 토론
+**시장 토론**(`/debate`)은 산업 10개를 **성장 시장 / 보합 / 침체(수면기)** 로 나눠 보여 줍니다.
+1. **1라운드**: 투자 대가가 각자 산업 뉴스(최근 7일)와 오늘 거래 현황(거래대금·비중·평균 등락률·상위 종목)을 보고 판정과 이유를 냅니다.
+2. **2라운드**: 서로의 1라운드 의견을 읽고 이름을 들어 반박하거나 동의하고, 필요하면 판정을 바꿉니다(화면에 "↺ 바꿈" 표시).
+3. **요약**: 사회자 역할의 AI가 쟁점을 정리합니다. **결론(라벨)은 AI가 아니라 다수결**로 정합니다 (동수면 확신도 합, 그래도 같으면 보합).
+
+- Actions **Sector debates** 가 한국 시간 평일 16:40에 만들고(저장소·키 설정은 2-4와 같은 시크릿 사용), 화면은 산업별 가장 최근 토론을 보여 줍니다. 화면에서 직접 토론을 만드는 버튼은 없습니다 (비용 보호).
+- 이 워크플로는 수집기가 올린 시세가 필요합니다(`Collect quotes` 를 먼저 돌려 두세요). 견본 데이터로는 토론을 만들지 않습니다.
+- Supabase SQL Editor 에서 **`supabase/schema.sql` 을 다시 실행**하세요 (`sector_debates` 추가).
+- **하루 호출 수**: 산업 하나에 투자자 4명이면 `2×4+1 = 9회`, 10개 산업이면 90회입니다. 종목 판단(상위 20종목 × 4회 = 80회)까지 합치면 매일 자동분만 약 170회라서, 직접 조회할 여유를 두려고 `AI_DAILY_CAP` 기본값을 300으로 했습니다. NVIDIA 무료 한도가 이보다 작다면 값을 줄이거나 `JUDGE_TOP_N` 을 줄이세요.
+- 기사는 구글 뉴스에서 '○○주' 같은 시장 표현으로 모읍니다 (`lib/sectors.ts`). 산업 전망 식 검색어는 시장조사 보고서 스팸만 나와서 쓰지 않고, 남은 스팸은 필터로 거릅니다. **일부 산업은 업황과 무관한 기사가 섞일 수 있습니다.**
+
 ## 3. 구성
 | 경로 | 역할 |
 |---|---|
@@ -93,6 +105,8 @@ npm run sync-investors
 | `lib/pipeline.ts`, `lib/store.ts` | 판단 생성·저장, 하루 호출 상한 |
 | `app/api/judge/route.ts` | 판단 요청 API (접속 비밀번호로 보호) |
 | `scripts/precompute-judgments.ts` | 장 마감 후 상위 종목 판단 미리 만들기 |
+| `lib/debate.ts`, `lib/debatePipeline.ts`, `lib/sectors.ts` | 산업별 토론(프롬프트·답변 해석·다수결), 진행, 검색어 |
+| `scripts/precompute-debates.ts` | 장 마감 후 산업별 토론 만들기 |
 | `middleware.ts` | 접속 비밀번호 |
 
 ## 4. 알아 둘 점

@@ -654,3 +654,127 @@ th.rank {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ── 3단계: 시장 토론 ───────────────────────────────────────────── */
+.group {
+  margin-top: 24px;
+}
+.group > h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.group > h2 small {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.debates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.debate {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.debate header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.debate h3 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.stance {
+  font-weight: 800;
+}
+.votes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 4px 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.summary {
+  margin: 0 0 10px;
+  line-height: 1.6;
+}
+.finals {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 13.5px;
+}
+.finals .mini {
+  margin-left: 4px;
+  font-weight: 800;
+}
+.changed {
+  margin-left: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.stats {
+  margin: 0 0 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.debate details {
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+  padding-top: 8px;
+}
+.debate summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+.debate h4 {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.rounds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13.5px;
+}
+.rounds > li {
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.rounds > li:first-child {
+  border-top: 0;
+}
+.rounds ol {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+.rounds p {
+  margin: 3px 0 0;
+}
+.rounds a {
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.rounds a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 900px) {
+  .debates {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

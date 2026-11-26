@@ -9,7 +9,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "sync-investors": "node scripts/sync-investors.mjs",
-    "judge:top": "tsx scripts/precompute-judgments.ts"
+    "judge:top": "tsx scripts/precompute-judgments.ts",
+    "debate:sectors": "tsx scripts/precompute-debates.ts"
   },
   "dependencies": {
     "next": "^15.5.0",

@@ -59,3 +59,17 @@ alter table ai_usage force row level security;
 
 -- 함수는 기본적으로 anon 키로도 호출할 수 있으므로 막는다. 서비스 롤(서버·Actions)만 쓴다.
 revoke all on function consume_ai_calls(date, integer, integer) from public, anon, authenticated;
+
+-- ── 3단계: 산업별 시장 토론 ────────────────────────────────────────────
+-- 산업·날짜(한국 기준)마다 토론 1개. 화면은 산업별로 가장 최근 것을 보여 준다.
+create table if not exists sector_debates (
+  sector      text not null,
+  day         date not null,
+  payload     jsonb not null,                       -- 1·2라운드 의견, 투표, 결론, 요약, 근거 뉴스
+  created_at  timestamptz not null default now(),
+  primary key (sector, day)
+);
+create index if not exists sector_debates_day_idx on sector_debates (day desc);
+
+alter table sector_debates enable row level security;
+alter table sector_debates force row level security;
