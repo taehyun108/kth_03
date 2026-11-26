@@ -84,7 +84,7 @@ a {
 /* ── 머리말: 좌측 상단 오늘의 명언 + 제목 ───────────────────────── */
 .masthead {
   display: grid;
-  grid-template-columns: minmax(0, 380px) 1fr;
+  grid-template-columns: minmax(0, 440px) 1fr;
   gap: 20px 32px;
   align-items: stretch;
   padding: 20px 0 16px;
@@ -100,24 +100,75 @@ a {
   border-bottom: 1px solid var(--line);
 }
 .quote h2 {
-  margin: 0 0 4px;
+  margin: 0 0 6px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+.quote .quote-who {
+  color: var(--ink);
+  font-size: 13px;
+}
+.quote blockquote {
+  margin: 0;
+}
+.quote blockquote p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
 }
 .quote p {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
-}
-.quote .who {
-  margin-top: 6px;
-  font-size: 12.5px;
-  color: var(--muted);
 }
 .quote.empty p {
   color: var(--muted);
+}
+.quote-orig {
+  margin-top: 8px;
+  font-size: 13px;
+}
+.quote-orig summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 600;
+}
+.quote-orig p {
+  margin: 6px 0 0;
+}
+.quote-orig .en {
+  font-style: italic;
+}
+.quote-orig .src,
+.quote-orig .verify,
+.quote-orig .tr {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.quote-orig .verify .ok {
+  color: var(--accent);
+  font-weight: 700;
+}
+.quote-orig .verify .partial {
+  color: var(--warn-ink);
+  background: var(--warn-bg);
+  padding: 0 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.quote-orig .note {
+  color: var(--muted);
+}
+.quote-orig .perspective {
+  font-size: 12.5px;
+  line-height: 1.5;
 }
 
 .brand {

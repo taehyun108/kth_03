@@ -1,0 +1,597 @@
+[
+ {
+  "key": "warren_buffett",
+  "name": "워런 버핏",
+  "icon": "🎩",
+  "philosophy": "이해할 수 있는 사업, 지속되는 해자, 믿을 만한 경영진, 적은 빚과 꾸준한 이익, 그리고 10년을 들고 있어도 편한 회사를 본다.",
+  "quotes": [
+   {
+    "en": "We simply attempt to be fearful when others are greedy and to be greedy only when others are fearful.",
+    "ko": "우리는 그저 남들이 욕심낼 때 두려워하고, 남들이 두려워할 때만 욕심내려 노력할 뿐이다.",
+    "source": {
+     "title": "버크셔 해서웨이 1986년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1986.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "we simply attempt to be fearful when others are greedy and to be greedy only when others are fearful"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1986.html"
+    }
+   },
+   {
+    "en": "It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price.",
+    "ko": "적당한 기업을 훌륭한 가격에 사는 것보다, 훌륭한 기업을 적당한 가격에 사는 편이 훨씬 낫다.",
+    "source": {
+     "title": "버크셔 해서웨이 1989년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1989.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "it's far better to buy a wonderful company at a fair price than a fair company at a wonderful price"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1989.html"
+    }
+   },
+   {
+    "en": "Time is the friend of the wonderful business, the enemy of the mediocre.",
+    "ko": "시간은 훌륭한 기업에게는 친구이고, 평범한 기업에게는 적이다.",
+    "source": {
+     "title": "버크셔 해서웨이 1989년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1989.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "time is the friend of the wonderful business, the enemy of the mediocre"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1989.html"
+    }
+   },
+   {
+    "en": "Charlie and I have not learned how to solve difficult business problems. What we have learned is to avoid them.",
+    "ko": "찰리와 나는 어려운 사업 문제를 푸는 법을 배우지 못했다. 우리가 배운 것은 그런 문제를 피하는 법이다.",
+    "source": {
+     "title": "버크셔 해서웨이 1989년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1989.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "charlie and i have not learned how to solve difficult business problems. what we have learned is to avoid them"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1989.html"
+    }
+   },
+   {
+    "en": "When we own portions of outstanding businesses with outstanding managements, our favorite holding period is forever.",
+    "ko": "뛰어난 경영진이 이끄는 뛰어난 기업의 지분을 가졌다면, 우리가 가장 좋아하는 보유 기간은 영원이다.",
+    "source": {
+     "title": "버크셔 해서웨이 1988년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1988.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "when we own portions of outstanding businesses with outstanding managements, our favorite holding period is forever"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1988.html"
+    }
+   },
+   {
+    "en": "Mr. Market is there to serve you, not to guide you.",
+    "ko": "미스터 마켓은 당신을 섬기려고 있는 것이지, 당신을 이끌려고 있는 것이 아니다.",
+    "source": {
+     "title": "버크셔 해서웨이 1987년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1987.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "mr. market is there to serve you, not to guide you"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1987.html"
+    }
+   },
+   {
+    "en": "An investor needs to do very few things right as long as he or she avoids big mistakes.",
+    "ko": "투자자는 큰 실수만 피한다면 올바른 일을 아주 조금만 해도 된다.",
+    "source": {
+     "title": "버크셔 해서웨이 1992년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1992.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "an investor needs to do very few things right as long as he or she avoids big mistakes"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1992.html"
+    }
+   },
+   {
+    "en": "Second, and equally important, we insist on a margin of safety in our purchase price.",
+    "ko": "둘째, 그리고 똑같이 중요하게, 우리는 매입 가격에 안전 마진을 요구한다.",
+    "source": {
+     "title": "버크셔 해서웨이 1992년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/letters/1992.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "second, and equally important, we insist on a margin of safety in our purchase price"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1992.html"
+    }
+   },
+   {
+    "en": "After all, you only find out who is swimming naked when the tide goes out.",
+    "ko": "결국 누가 벌거벗고 헤엄치고 있었는지는 물이 빠져야 알게 된다.",
+    "source": {
+     "title": "버크셔 해서웨이 2001년 주주서한",
+     "detail": "주주서한",
+     "url": "https://www.berkshirehathaway.com/2001ar/2001letter.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "you only find out who is swimming naked when the tide goes out"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/2001ar/2001letter.html"
+    }
+   }
+  ]
+ },
+ {
+  "key": "charlie_munger",
+  "name": "찰리 멍거",
+  "icon": "🧠",
+  "philosophy": "먼저 거꾸로 생각해 망할 이유부터 찾고, 자본 수익이 해마다 꾸준히 높은지 보며, 좋은 아이디어 열 개를 놓쳐도 나쁜 하나는 거절한다.",
+  "quotes": [
+   {
+    "en": "Invert, always invert.",
+    "ko": "거꾸로 생각하라, 언제나 거꾸로.",
+    "source": {
+     "title": "『Poor Charlie's Almanack』",
+     "detail": "멍거가 수학자 야코비의 말을 즐겨 인용 — 해악 심리학 강연(1995) 등",
+     "url": "https://archive.org/details/poor-charlies-almanack-charles-t.-munger"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "invert, always invert"
+     ],
+     "textUrl": "https://archive.org/download/poor-charlies-almanack-charles-t.-munger/Poor%20Charlies%20Almanack%20-%20Charles%20T.%20Munger_djvu.txt",
+     "note": "수학자 야코비의 말을 멍거가 인용"
+    }
+   },
+   {
+    "en": "You've got to array your experience—both vicarious and direct—on this latticework of models.",
+    "ko": "직접·간접 경험을 이 '사고 모형의 격자' 위에 배열해야 한다.",
+    "source": {
+     "title": "「A Lesson on Elementary, Worldly Wisdom」 (1994 USC 강연)",
+     "detail": "강연 전문",
+     "url": "https://fs.blog/great-talks/a-lesson-on-worldly-wisdom/"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "you've got to array your experience--both vicarious and direct--on this latticework of models"
+     ],
+     "textUrl": "https://fs.blog/great-talks/a-lesson-on-worldly-wisdom/"
+    }
+   },
+   {
+    "en": "To the man with a hammer, every problem looks like a nail.",
+    "ko": "망치를 든 사람에게는 모든 문제가 못으로 보인다.",
+    "source": {
+     "title": "「A Lesson on Elementary, Worldly Wisdom」 (1994 USC 강연)",
+     "detail": "강연 전문",
+     "url": "https://fs.blog/great-talks/a-lesson-on-worldly-wisdom/"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "to the man with a hammer, every problem looks like a nail"
+     ],
+     "textUrl": "https://fs.blog/great-talks/a-lesson-on-worldly-wisdom/"
+    }
+   },
+   {
+    "en": "Never, ever, think about something else when you should be thinking about the power of incentives.",
+    "ko": "유인(인센티브)의 힘을 생각해야 할 때는 절대로 다른 생각을 하지 마라.",
+    "source": {
+     "title": "「The Psychology of Human Misjudgment」 (1995 하버드 강연)",
+     "detail": "강연 전문",
+     "url": "https://neilhacker.com/wp-content/uploads/2020/02/human-misjudgement-copy.pdf"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "never, ever, think about something else when you should be thinking about the power of incentives"
+     ],
+     "textUrl": null,
+     "manualOnly": true
+    }
+   },
+   {
+    "en": "It's not given to human beings to have such talent that they can just know everything about everything all the time.",
+    "ko": "인간은 모든 것을 항상 다 알 만한 재능을 타고나지 않았다.",
+    "source": {
+     "title": "「A Lesson on Elementary, Worldly Wisdom」 (1994 USC 강연)",
+     "detail": "강연 전문",
+     "url": "https://fs.blog/great-talks/a-lesson-on-worldly-wisdom/"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "it's not given to human beings to have such talent that they can just know everything about everything all the time"
+     ],
+     "textUrl": "https://fs.blog/great-talks/a-lesson-on-worldly-wisdom/"
+    }
+   },
+   {
+    "en": "Take a simple idea and take it seriously.",
+    "ko": "단순한 아이디어 하나를 잡고, 그것을 진지하게 받아들여라.",
+    "source": {
+     "title": "『Poor Charlie's Almanack』 (2005, Donning판)",
+     "detail": "250쪽 부근, 장 첫머리의 멍거 인용구",
+     "url": "https://archive.org/details/poorcharliesalma00wals"
+    },
+    "verification": {
+     "method": "책 스캔 검색 발췌",
+     "checkedAt": "2026-11-26",
+     "note": "이 판은 대출 전용이라 원문 전체를 내려받지 못하고 Internet Archive 전문 검색의 발췌 문장으로 확인"
+    }
+   },
+   {
+    "en": "Spend each day trying to be a little wiser than you were when you woke up.",
+    "ko": "하루하루, 아침에 눈뜰 때보다 조금 더 현명해지려고 노력하며 보내라.",
+    "source": {
+     "title": "『Poor Charlie's Almanack』",
+     "detail": "멍거의 말",
+     "url": "https://archive.org/details/poor-charlies-almanack-charles-t.-munger"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "spend each day trying to be a little wiser than you were when you woke up"
+     ],
+     "textUrl": "https://archive.org/download/poor-charlies-almanack-charles-t.-munger/Poor%20Charlies%20Almanack%20-%20Charles%20T.%20Munger_djvu.txt"
+    }
+   },
+   {
+    "en": "All I want to know is where I'm going to die, so I'll never go there.",
+    "ko": "내가 알고 싶은 건 내가 어디서 죽을지뿐이다. 그러면 거기에는 절대 가지 않을 테니까.",
+    "source": {
+     "title": "『Poor Charlie's Almanack』",
+     "detail": "멍거의 말",
+     "url": "https://archive.org/details/poor-charlies-almanack-charles-t.-munger"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "all i want to know is where i'm going to die, so i'll never go there"
+     ],
+     "textUrl": "https://archive.org/download/poor-charlies-almanack-charles-t.-munger/Poor%20Charlies%20Almanack%20-%20Charles%20T.%20Munger_djvu.txt"
+    }
+   }
+  ]
+ },
+ {
+  "key": "benjamin_graham",
+  "name": "벤저민 그레이엄",
+  "icon": "🛡️",
+  "philosophy": "안전 마진이 먼저다. 기대감은 빼고 확인된 실적과 자산만 보며, 값이 더 떨어져도 버틸 여유가 있는지 따진다.",
+  "quotes": [
+   {
+    "en": "Investment is most intelligent when it is most businesslike.",
+    "ko": "투자는 가장 사업가답게 할 때 가장 현명하다.",
+    "source": {
+     "title": "『The Intelligent Investor』",
+     "detail": "제20장 「안전 마진은 투자의 중심 개념」",
+     "url": "https://archive.org/details/epdf.pub_the-intelligent-investor"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "investment is most intelligent when it is most businesslike"
+     ],
+     "textUrl": "https://archive.org/download/epdf.pub_the-intelligent-investor/epdf.pub_the-intelligent-investor_djvu.txt"
+    }
+   },
+   {
+    "en": "The investor's chief problem—and even his worst enemy—is likely to be himself.",
+    "ko": "투자자의 가장 큰 문제, 심지어 최악의 적은 자기 자신일 가능성이 크다.",
+    "source": {
+     "title": "『The Intelligent Investor』",
+     "detail": "서문(Introduction)",
+     "url": "https://archive.org/details/epdf.pub_the-intelligent-investor"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "the investor's chief problem--and even his worst enemy--is likely to be himself"
+     ],
+     "textUrl": "https://archive.org/download/epdf.pub_the-intelligent-investor/epdf.pub_the-intelligent-investor_djvu.txt"
+    }
+   },
+   {
+    "en": "Confronted with a like challenge to distill the secret of sound investment into three words, we venture the motto, MARGIN OF SAFETY.",
+    "ko": "건전한 투자의 비밀을 세 단어로 줄이라는 같은 도전을 받는다면, 우리는 '안전 마진(MARGIN OF SAFETY)'이라는 표어를 내놓겠다.",
+    "source": {
+     "title": "『The Intelligent Investor』",
+     "detail": "제20장 「안전 마진은 투자의 중심 개념」",
+     "url": "https://archive.org/details/epdf.pub_the-intelligent-investor"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "confronted with a like challenge to distill the secret of sound investment into three words, we venture the motto, margin of safety"
+     ],
+     "textUrl": "https://archive.org/download/epdf.pub_the-intelligent-investor/epdf.pub_the-intelligent-investor_djvu.txt"
+    }
+   },
+   {
+    "en": "The margin of safety is always dependent on the price paid.",
+    "ko": "안전 마진은 언제나 치른 가격에 달려 있다.",
+    "source": {
+     "title": "『The Intelligent Investor』",
+     "detail": "제20장 「안전 마진은 투자의 중심 개념」",
+     "url": "https://archive.org/details/epdf.pub_the-intelligent-investor"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "the margin of safety is always dependent on the price paid"
+     ],
+     "textUrl": "https://archive.org/download/epdf.pub_the-intelligent-investor/epdf.pub_the-intelligent-investor_djvu.txt"
+    }
+   },
+   {
+    "en": "To achieve satisfactory investment results is easier than most people realize; to achieve superior results is harder than it looks.",
+    "ko": "만족스러운 투자 성과를 내기는 사람들이 생각하는 것보다 쉽지만, 뛰어난 성과를 내기는 보기보다 어렵다.",
+    "source": {
+     "title": "『The Intelligent Investor』",
+     "detail": "제20장 「안전 마진은 투자의 중심 개념」",
+     "url": "https://archive.org/details/epdf.pub_the-intelligent-investor"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "to achieve satisfactory investment results is easier than most people realize; to achieve superior results is harder than it looks"
+     ],
+     "textUrl": "https://archive.org/download/epdf.pub_the-intelligent-investor/epdf.pub_the-intelligent-investor_djvu.txt"
+    }
+   },
+   {
+    "en": "Obvious prospects for physical growth in a business do not translate into obvious profits for investors.",
+    "ko": "사업의 눈에 띄는 물리적 성장 전망이 투자자에게 눈에 띄는 이익으로 이어지는 것은 아니다.",
+    "source": {
+     "title": "『The Intelligent Investor』",
+     "detail": "서문(Introduction) — 항공·전자 산업 사례에서 끌어낸 교훈",
+     "url": "https://archive.org/details/epdf.pub_the-intelligent-investor"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "obvious prospects for physical growth in a business do not translate into obvious profits for investors"
+     ],
+     "textUrl": "https://archive.org/download/epdf.pub_the-intelligent-investor/epdf.pub_the-intelligent-investor_djvu.txt"
+    }
+   },
+   {
+    "en": "In the short run, the market is a voting machine but in the long run it is a weighing machine.",
+    "ko": "단기적으로 시장은 투표 기계지만, 장기적으로는 저울이다.",
+    "source": {
+     "title": "버크셔 해서웨이 1987년 주주서한",
+     "detail": "버핏이 그레이엄의 말로 인용",
+     "url": "https://www.berkshirehathaway.com/letters/1987.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "as ben said: \"in the short run, the market is a voting machine but in the long run it is a weighing machine"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1987.html",
+     "note": "버핏이 서한에서 그레이엄(Ben)의 말로 인용"
+    }
+   },
+   {
+    "en": "Price is what you pay; value is what you get.",
+    "ko": "가격은 내가 내는 것이고, 가치는 내가 얻는 것이다.",
+    "source": {
+     "title": "버크셔 해서웨이 2008년 주주서한",
+     "detail": "버핏이 그레이엄에게 배운 말로 소개",
+     "url": "https://www.berkshirehathaway.com/letters/2008ltr.pdf"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "ben graham taught me that \"price is what you pay; value is what you get"
+     ],
+     "textUrl": null,
+     "manualOnly": true,
+     "note": "버핏이 서한에서 그레이엄에게 배운 말로 인용"
+    }
+   }
+  ]
+ },
+ {
+  "key": "peter_lynch",
+  "name": "피터 린치",
+  "icon": "🚀",
+  "philosophy": "적당한 값의 성장을 찾는다. 이익 성장 속도에 비해 값이 비싼지, 성장세가 남았는지, 이름값인지 실속인지를 가려 본다.",
+  "quotes": [
+   {
+    "en": "You won't improve results by pulling out the flowers and watering the weeds.",
+    "ko": "꽃을 뽑고 잡초에 물을 주어서는 성과가 나아지지 않는다.",
+    "source": {
+     "title": "『One Up on Wall Street』",
+     "detail": "본문(오른 종목을 팔고 내린 종목을 들고 있는 습관을 비판하는 대목)",
+     "url": "https://archive.org/details/peter-lynch-one-up-on-wall-street"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "you won't improve results by pulling out the flowers and watering the weeds"
+     ],
+     "textUrl": "https://archive.org/download/peter-lynch-one-up-on-wall-street/Peter_Lynch_one-up-on-wall-street_djvu.txt"
+    }
+   },
+   {
+    "en": "Stocks aren't lottery tickets. There's a company attached to every share.",
+    "ko": "주식은 복권이 아니다. 모든 주식에는 회사가 붙어 있다.",
+    "source": {
+     "title": "『One Up on Wall Street』",
+     "detail": "본문(개정판 서문)",
+     "url": "https://archive.org/details/peter-lynch-one-up-on-wall-street"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "stocks aren't lottery tickets. there's a company attached to every share"
+     ],
+     "textUrl": "https://archive.org/download/peter-lynch-one-up-on-wall-street/Peter_Lynch_one-up-on-wall-street_djvu.txt"
+    }
+   },
+   {
+    "en": "When somebody says, 'Any idiot could run this joint,' that's a plus as far as I'm concerned, because sooner or later any idiot probably is going to be running it.",
+    "ko": "누가 '바보도 운영할 수 있는 회사'라고 하면 나는 오히려 좋게 본다. 언젠가는 바보가 운영하게 될 테니까.",
+    "source": {
+     "title": "『One Up on Wall Street』",
+     "detail": "본문(좋은 사업의 조건)",
+     "url": "https://archive.org/details/peter-lynch-one-up-on-wall-street"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "\"any idiot could run this joint,\"",
+      "sooner or later any idiot probably is going to be running it"
+     ],
+     "textUrl": "https://archive.org/download/peter-lynch-one-up-on-wall-street/Peter_Lynch_one-up-on-wall-street_djvu.txt",
+     "note": "스캔본 OCR 오류('I'm'이 ''m'으로 나옴)로 핵심 구절 두 곳만 대조"
+    }
+   },
+   {
+    "en": "The simpler it is, the better I like it.",
+    "ko": "단순할수록 나는 더 좋아한다.",
+    "source": {
+     "title": "『One Up on Wall Street』",
+     "detail": "본문(좋은 사업의 조건)",
+     "url": "https://archive.org/details/peter-lynch-one-up-on-wall-street"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "the simpler it is, the better i like it"
+     ],
+     "textUrl": "https://archive.org/download/peter-lynch-one-up-on-wall-street/Peter_Lynch_one-up-on-wall-street_djvu.txt"
+    }
+   },
+   {
+    "en": "You don't need to make money on every stock you pick. In my experience, six out of ten winners in a portfolio can produce a satisfying result.",
+    "ko": "고른 모든 종목에서 돈을 벌 필요는 없다. 내 경험상 포트폴리오의 열 종목 중 여섯이 이기면 만족스러운 결과가 나온다.",
+    "source": {
+     "title": "『One Up on Wall Street』",
+     "detail": "본문(종목 승률에 관한 대목)",
+     "url": "https://archive.org/details/peter-lynch-one-up-on-wall-street"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "you don't need to make money on every stock you pick. in my experience, six out of ten winners in a portfolio can produce a satisfying result"
+     ],
+     "textUrl": "https://archive.org/download/peter-lynch-one-up-on-wall-street/Peter_Lynch_one-up-on-wall-street_djvu.txt"
+    }
+   },
+   {
+    "en": "If you can summon the courage and presence of mind to buy during these scary episodes when your stomach says 'sell,' you'll find opportunities that you wouldn't have thought you'd ever see again.",
+    "ko": "속이 '팔라'고 외치는 이런 무서운 시기에 용기를 내 살 수 있다면, 다시는 못 볼 줄 알았던 기회를 만나게 될 것이다.",
+    "source": {
+     "title": "『One Up on Wall Street』",
+     "detail": "본문(폭락장 대응)",
+     "url": "https://archive.org/details/peter-lynch-one-up-on-wall-street"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "if you can summon the courage and presence of mind to buy during these scary episodes when your stomach says \"sell,\" you'll find opportunities that you wouldn't have thought you'd ever see again"
+     ],
+     "textUrl": "https://archive.org/download/peter-lynch-one-up-on-wall-street/Peter_Lynch_one-up-on-wall-street_djvu.txt"
+    }
+   },
+   {
+    "en": "Competition may prove hazardous to human wealth.",
+    "ko": "경쟁은 인간의 부에 해로울 수 있다.",
+    "source": {
+     "title": "버크셔 해서웨이 1993년 주주서한",
+     "detail": "버핏이 린치의 말로 인용(원자재형 제품을 파는 회사 주식의 '경고 문구')",
+     "url": "https://www.berkshirehathaway.com/letters/1993.html"
+    },
+    "verification": {
+     "method": "원문 문자열 대조",
+     "checkedAt": "2026-11-26",
+     "checks": [
+      "as peter lynch says, stocks of companies selling commodity-like products should come with a warning label: \"competition may prove hazardous to human wealth"
+     ],
+     "textUrl": "https://www.berkshirehathaway.com/letters/1993.html",
+     "note": "버핏이 서한에서 린치의 말로 인용"
+    }
+   },
+   {
+    "en": "Behind every stock is a company. Find out what it's doing.",
+    "ko": "모든 주식 뒤에는 회사가 있다. 그 회사가 무엇을 하는지 알아내라.",
+    "source": {
+     "title": "『Beating the Street』 (1994)",
+     "detail": "342쪽, 원칙 요약 목록",
+     "url": "https://archive.org/details/beatingstreetbes00lync"
+    },
+    "verification": {
+     "method": "책 스캔 검색 발췌",
+     "checkedAt": "2026-11-26",
+     "note": "책 스캔은 대출 전용이라 원문 전체를 내려받지 못하고 Internet Archive 전문 검색의 발췌 문장으로 확인"
+    }
+   }
+  ]
+ }
+]
