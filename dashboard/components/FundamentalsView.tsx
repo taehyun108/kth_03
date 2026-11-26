@@ -1,14 +1,28 @@
 import { fmtKRW } from "@/lib/format";
 import type { Fundamentals } from "@/lib/fundamentals";
+import type { FundSource } from "@/lib/fundamentalsSource";
 
 const amount = (v: number | null) => (v === null ? "–" : fmtKRW(v));
 
-export default function FundamentalsView({ f }: { f: Fundamentals }) {
+const SOURCE_TEXT: Record<FundSource, string> = {
+  cache: "저장된 계산값",
+  live: "방금 야후에서 계산",
+  "stale-cache": "야후 접속 실패로 오래된 저장값 사용",
+};
+
+function when(iso: string): string {
+  return new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(iso));
+}
+
+export default function FundamentalsView({ f, source, fetchedAt }: { f: Fundamentals; source: FundSource; fetchedAt: string }) {
   return (
     <>
       <p className="meta" style={{ padding: "0 16px" }}>
         <span>최근 결산 {f.fiscalDate} 기준 (연간)</span>
         <span>계산식을 함께 표시합니다</span>
+        <span className={source === "stale-cache" ? "badge sample" : "badge"}>
+          {SOURCE_TEXT[source]} · {when(fetchedAt)}
+        </span>
       </p>
       <ul className="metrics">
         {f.metrics.map((m) => (

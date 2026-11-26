@@ -4,7 +4,7 @@ import { judgeStock, kstDay, type Judgment } from "./judge";
 import { fetchNews, type NewsItem } from "./news";
 import { nvidiaChat, nvidiaModel } from "./nvidia";
 import { consumeAiCalls, getJudgment, hasSupabase, saveJudgment } from "./store";
-import { loadFundamentals } from "./yahoo";
+import { getFundamentals } from "./fundamentalsSource";
 
 export type JudgmentResult =
   | { ok: true; judgment: Judgment; cached: boolean }
@@ -25,7 +25,7 @@ export async function createJudgment(code: string): Promise<JudgmentResult> {
 
   let fundamentals;
   try {
-    fundamentals = await loadFundamentals(code);
+    fundamentals = (await getFundamentals(code)).f;
   } catch (err) {
     return { ok: false, status: 502, error: `재무 데이터를 불러오지 못했습니다 (${err instanceof Error ? err.message : "알 수 없음"})` };
   }

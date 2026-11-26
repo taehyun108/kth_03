@@ -1,4 +1,5 @@
 import type { Debate } from "./debate";
+import type { Fundamentals } from "./fundamentals";
 import type { Judgment } from "./judge";
 
 /**
@@ -28,9 +29,13 @@ async function sb<T>(path: string, init: RequestInit = {}): Promise<T> {
 // ── 개발용 메모리 저장소 ───────────────────────────────────────────
 // 전역 객체에 둔다: 개발 서버가 페이지를 다시 컴파일해도 값이 사라지지 않게(사라지면 호출 상한이 풀린다).
 // 운영에서는 쓰지 않는다 — 서버 인스턴스마다 따로 생겨 상한을 지킬 수 없다(pipeline.ts 에서 Supabase 없으면 거부).
-const g = globalThis as unknown as { __ebMem?: { judgments: Map<string, Judgment>; usage: Map<string, number>; debates?: Map<string, Debate> } };
-const mem = (g.__ebMem ??= { judgments: new Map(), usage: new Map(), debates: new Map() });
+const g = globalThis as unknown as {
+  __ebMem?: { judgments: Map<string, Judgment>; usage: Map<string, number>; debates?: Map<string, Debate>; fundamentals?: Map<string, CachedFundamentals> };
+};
+const mem = (g.__ebMem ??= { judgments: new Map(), usage: new Map(), debates: new Map(), fundamentals: new Map() });
 mem.debates ??= new Map();
+mem.fundamentals ??= new Map();
+const memFundamentals = mem.fundamentals;
 const memJudgments = mem.judgments;
 const memUsage = mem.usage;
 const memDebates = mem.debates;
@@ -103,4 +108,67 @@ export async function latestDebates(): Promise<Debate[]> {
     if (!cur || d.day > cur.day) best.set(d.sector, d);
   }
   return [...best.values()];
+}
+
+// ── 재무 지표 캐시 ──────────────────────────────────────────────────
+// Vercel 서버에서 야후가 막히거나 느려도 종목 조회가 되도록, Actions 가 미리 계산한 지표를 저장해 두고 먼저 읽는다.
+export type CachedFundamentals = { f: Fundamentals; fetchedAt: string };
+
+export async function getFundamentalsCache(code: string): Promise<CachedFundamentals | null> {
+  if (!hasSupabase()) return memFundamentals.get(code) ?? null;
+  const rows = await sb<{ payload: Fundamentals; fetched_at: string }[]>(`fundamentals_cache?code=eq.${code}&select=payload,fetched_at&limit=1`);
+  return rows[0] ? { f: rows[0].payload, fetchedAt: rows[0].fetched_at } : null;
+}
+
+export async function saveFundamentalsCache(code: string, f: Fundamentals, now: Date = new Date()): Promise<void> {
+  if (!hasSupabase()) {
+    memFundamentals.set(code, { f, fetchedAt: now.toISOString() });
+    return;
+  }
+  await sb("fundamentals_cache?on_conflict=code", {
+    method: "POST",
+    headers: { prefer: "resolution=merge-duplicates,return=minimal" },
+    body: JSON.stringify([{ code, payload: f, fetched_at: now.toISOString() }]),
+  });
+}
+
+// ── 설정 점검용 요약 (/status) ──────────────────────────────────────
+export type Overview = {
+  quotes: { count: number; latest: string | null };
+  fundamentalsCount: number;
+  judgmentsToday: number;
+  debates: { latestDay: string | null; count: number };
+  aiCallsToday: number;
+};
+
+async function sbCount(path: string): Promise<number> {
+  const res = await fetch(`${url()}/rest/v1/${path}`, {
+    headers: { apikey: key()!, authorization: `Bearer ${key()}`, range: "0-0", prefer: "count=exact" },
+    cache: "no-store",
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!res.ok) throw new Error(`Supabase HTTP ${res.status} (${path.split("?")[0]})`);
+  const total = /\/(\d+)$/.exec(res.headers.get("content-range") ?? "");
+  return total ? Number(total[1]) : 0;
+}
+
+/** 테이블 현황. Supabase 가 없으면 null. 테이블이 없으면(schema.sql 미실행) 오류를 던진다. */
+export async function overview(day: string): Promise<Overview | null> {
+  if (!hasSupabase()) return null;
+  const [quotesCount, latestQuote, fundamentalsCount, judgmentsToday, usage, latestDebate] = await Promise.all([
+    sbCount("quotes_latest?select=code"),
+    sb<{ updated_at: string }[]>("quotes_latest?select=updated_at&order=updated_at.desc&limit=1"),
+    sbCount("fundamentals_cache?select=code"),
+    sbCount(`stock_judgments?select=code&day=eq.${day}`),
+    sb<{ calls: number }[]>(`ai_usage?select=calls&day=eq.${day}&limit=1`),
+    sb<{ day: string }[]>("sector_debates?select=day&order=day.desc&limit=1"),
+  ]);
+  const latestDay = latestDebate[0]?.day ?? null;
+  return {
+    quotes: { count: quotesCount, latest: latestQuote[0]?.updated_at ?? null },
+    fundamentalsCount,
+    judgmentsToday,
+    debates: { latestDay, count: latestDay ? await sbCount(`sector_debates?select=sector&day=eq.${latestDay}`) : 0 },
+    aiCallsToday: usage[0]?.calls ?? 0,
+  };
 }

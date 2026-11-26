@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata, Viewport } from "next";
 import QuoteSlot from "@/components/QuoteSlot";
 import Tabs from "@/components/Tabs";
@@ -36,6 +37,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer className="foot">
             <p>⚠️ 참고용 정보이며 투자 권유가 아닙니다. 모든 투자 판단과 책임은 본인에게 있습니다.</p>
             <p>시세: 야후 파이낸스(몇 분 지연될 수 있음) · 거래대금은 종가 × 거래량으로 추정한 값입니다.</p>
+            <p>
+              <Link href="/status">상태 점검</Link>
+            </p>
           </footer>
         </div>
       </body>

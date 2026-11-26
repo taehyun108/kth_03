@@ -1,22 +1,23 @@
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
 import FundamentalsView from "@/components/FundamentalsView";
+import RulesPanel from "@/components/RulesPanel";
 import JudgmentPanel from "@/components/JudgmentPanel";
 import NewsList from "@/components/NewsList";
 import StockSearch from "@/components/StockSearch";
 import { getSnapshot } from "@/lib/data";
+import { getFundamentals } from "@/lib/fundamentalsSource";
 import { fmtInt, fmtPct, trend } from "@/lib/format";
 import { INVESTORS } from "@/lib/investors.generated";
 import { kstDay } from "@/lib/judge";
 import { fetchNews, type NewsItem } from "@/lib/news";
 import { getJudgment } from "@/lib/store";
 import { UNIVERSE, lookup } from "@/lib/universe";
-import { loadFundamentals } from "@/lib/yahoo";
 
 export const metadata = { title: "종목 조회 — Economy Begin" };
 export const dynamic = "force-dynamic";
 
-const cachedFundamentals = unstable_cache(async (code: string) => loadFundamentals(code), ["fundamentals"], { revalidate: 3600 });
+const cachedFundamentals = unstable_cache(async (code: string) => getFundamentals(code), ["fundamentals"], { revalidate: 3600 });
 const cachedNews = unstable_cache(async (name: string) => fetchNews(name), ["news"], { revalidate: 600 });
 
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : "알 수 없는 오류");
@@ -77,7 +78,7 @@ async function Detail({ code, knownName, sector }: { code: string; knownName: st
     cachedFundamentals(code).then((v) => ({ ok: true as const, v }), (e: unknown) => ({ ok: false as const, error: errMsg(e) })),
     getJudgment(code, day).catch(() => null),
   ]);
-  const name = knownName ?? (fundRes.ok ? fundRes.v.name : code);
+  const name = knownName ?? (fundRes.ok ? fundRes.v.f.name : code);
 
   let news: NewsItem[] = [];
   let newsError = "";
@@ -88,7 +89,7 @@ async function Detail({ code, knownName, sector }: { code: string; knownName: st
   }
 
   const quote = snapshot.stocks.find((s) => s.code === code);
-  const price = quote?.price ?? (fundRes.ok ? fundRes.v.price : null);
+  const price = quote?.price ?? (fundRes.ok ? fundRes.v.f.price : null);
 
   return (
     <>
@@ -120,11 +121,13 @@ async function Detail({ code, knownName, sector }: { code: string; knownName: st
         </div>
       </section>
 
+      {fundRes.ok && <RulesPanel f={fundRes.v.f} />}
+
       <section className="card" aria-labelledby="fund-title" style={{ marginTop: 16 }}>
         <h2 id="fund-title">
           재무 지표<small>야후 재무제표로 직접 계산</small>
         </h2>
-        {fundRes.ok ? <FundamentalsView f={fundRes.v} /> : <p className="err pad">재무제표를 불러오지 못했습니다. ({fundRes.error})</p>}
+        {fundRes.ok ? <FundamentalsView f={fundRes.v.f} source={fundRes.v.source} fetchedAt={fundRes.v.fetchedAt} /> : <p className="err pad">재무제표를 불러오지 못했습니다. ({fundRes.error})</p>}
       </section>
 
       <section className="card" aria-labelledby="news-title" style={{ marginTop: 16 }}>

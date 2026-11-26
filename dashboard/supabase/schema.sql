@@ -73,3 +73,13 @@ create index if not exists sector_debates_day_idx on sector_debates (day desc);
 
 alter table sector_debates enable row level security;
 alter table sector_debates force row level security;
+
+-- ── 배포 보강: 재무 지표 캐시 ──────────────────────────────────────────
+-- Actions(Fundamentals cache)가 종목별로 미리 계산해 두면, 웹은 야후에 접속하지 않고 이 표를 먼저 읽는다.
+create table if not exists fundamentals_cache (
+  code        text primary key,
+  payload     jsonb not null,                       -- 계산된 지표와 계산식, 연도별 실적
+  fetched_at  timestamptz not null default now()
+);
+alter table fundamentals_cache enable row level security;
+alter table fundamentals_cache force row level security;
