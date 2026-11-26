@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { fmtInt, fmtKRW, fmtPct, trend } from "@/lib/format";
 import type { Stock } from "@/lib/types";
 
@@ -5,7 +6,7 @@ export default function RankTable({ rows, caption }: { rows: Stock[]; caption: s
   const maxVolume = Math.max(1, ...rows.map((r) => r.volume));
   return (
     <div className="table-scroll">
-      <table>
+      <table className="rank-table">
         <caption className="sr">{caption}</caption>
         <thead>
           <tr>
@@ -31,7 +32,9 @@ export default function RankTable({ rows, caption }: { rows: Stock[]; caption: s
             <tr key={r.code}>
               <td className="rank">{i + 1}</td>
               <td className="name">
-                <strong>{r.name}</strong>
+                <Link href={`/stock?q=${r.code}`}>
+                  <strong>{r.name}</strong>
+                </Link>
                 <span>
                   {r.code} · {r.market}
                 </span>

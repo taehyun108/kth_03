@@ -276,10 +276,12 @@ th {
   color: var(--muted);
   background: transparent;
 }
-th:nth-child(2),
-td:nth-child(2),
-th:nth-child(3),
-td:nth-child(3) {
+.rank-table th:nth-child(2),
+.rank-table td:nth-child(2),
+.rank-table th:nth-child(3),
+.rank-table td:nth-child(3),
+.hist th:first-child,
+.hist td:first-child {
   text-align: left;
 }
 td.rank {
@@ -475,5 +477,180 @@ th.rank {
   }
   .name strong {
     max-width: 5.5em;
+  }
+}
+
+/* ── 2단계: 종목 조회 ───────────────────────────────────────────── */
+.search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.search input::placeholder {
+  color: var(--muted);
+}
+.btn {
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.pad {
+  padding: 4px 16px 16px;
+}
+.err {
+  color: var(--up);
+  margin: 8px 0 0;
+}
+.stock-head {
+  margin-bottom: 16px;
+}
+.stock-head h2 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+}
+.stock-head p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.stock-head strong {
+  color: var(--ink);
+}
+
+.metrics {
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+}
+.metrics li {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+.m-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.m-row span {
+  color: var(--muted);
+  font-weight: 600;
+}
+.formula {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.news {
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 8px;
+}
+.news li {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+.news a {
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.news a:hover {
+  text-decoration: underline;
+}
+.news span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.judge-empty p {
+  margin: 8px 0 12px;
+  color: var(--muted);
+}
+.tally {
+  display: flex;
+  gap: 14px;
+  margin: 8px 0 12px;
+  font-weight: 700;
+}
+.opinions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.opinion {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.opinion header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.who-name {
+  font-weight: 700;
+}
+.verdict {
+  font-weight: 800;
+}
+.verdict small {
+  font-weight: 500;
+  color: var(--muted);
+}
+.opinion ol {
+  margin: 0;
+  padding-left: 18px;
+}
+.opinion li {
+  margin: 3px 0;
+  font-size: 14px;
+}
+.judge-foot {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.name a {
+  text-decoration: none;
+}
+.name a:hover strong {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .metrics,
+  .opinions {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

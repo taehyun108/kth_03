@@ -23,3 +23,39 @@ create index if not exists quotes_latest_sector_volume_idx on quotes_latest (sec
 -- 수집기와 웹 서버는 서비스 롤 키(RLS 우회)로만 접근하며, 이 키는 브라우저로 내려보내지 않는다.
 alter table quotes_latest enable row level security;
 alter table quotes_latest force row level security;
+
+-- ── 2단계: 투자자 판단 저장과 하루 AI 호출 상한 ──────────────────────────
+-- 종목·날짜(한국 기준)마다 판단 1개를 저장한다. 같은 날 다시 조회하면 AI 를 부르지 않고 이 값을 보여 준다.
+create table if not exists stock_judgments (
+  code        text not null,
+  day         date not null,
+  payload     jsonb not null,                       -- 투자자별 판정·확신도·이유
+  created_at  timestamptz not null default now(),
+  primary key (code, day)
+);
+
+-- 하루 AI 호출 횟수. consume_ai_calls 가 상한을 넘지 않을 때만 올리고, 음수 n 으로 반납한다(원자적).
+create table if not exists ai_usage (
+  day    date primary key,
+  calls  integer not null default 0 check (calls >= 0)
+);
+
+create or replace function consume_ai_calls(p_day date, p_n integer, p_cap integer)
+returns boolean
+language plpgsql
+as $$
+begin
+  insert into ai_usage (day, calls) values (p_day, 0) on conflict (day) do nothing;
+  update ai_usage set calls = calls + p_n
+   where day = p_day and calls + p_n <= p_cap and calls + p_n >= 0;
+  return found;
+end;
+$$;
+
+alter table stock_judgments enable row level security;
+alter table stock_judgments force row level security;
+alter table ai_usage enable row level security;
+alter table ai_usage force row level security;
+
+-- 함수는 기본적으로 anon 키로도 호출할 수 있으므로 막는다. 서비스 롤(서버·Actions)만 쓴다.
+revoke all on function consume_ai_calls(date, integer, integer) from public, anon, authenticated;

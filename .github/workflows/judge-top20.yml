@@ -1,0 +1,44 @@
+name: Judge top volume stocks
+
+# 장 마감 후(한국 시간 평일 16:15) 거래량 상위 종목의 투자자 판단을 미리 만들어 Supabase 에 저장한다.
+# 같은 날 같은 종목은 이미 있으면 건너뛰고, 하루 AI 호출 상한(AI_DAILY_CAP)을 넘기면 멈춘다.
+# 시크릿이 없으면 안내만 남기고 성공으로 끝난다.
+# 주의: 예약 실행(schedule)은 저장소의 '기본 브랜치'에 있는 워크플로만 돈다.
+on:
+  schedule:
+    - cron: "15 7 * * 1-5"   # UTC 07:15 = KST 16:15
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: judge-top20
+  cancel-in-progress: false
+
+jobs:
+  judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: dashboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - run: npm ci
+      - name: Precompute judgments
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          NVIDIA_API_KEY_2: ${{ secrets.NVIDIA_API_KEY_2 }}
+          NVIDIA_API_KEY_3: ${{ secrets.NVIDIA_API_KEY_3 }}
+          NVIDIA_MODEL: ${{ vars.NVIDIA_MODEL }}
+          AI_DAILY_CAP: ${{ vars.AI_DAILY_CAP }}
+          JUDGE_TOP_N: ${{ vars.JUDGE_TOP_N }}
+        run: npm run judge:top

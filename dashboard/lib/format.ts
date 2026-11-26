@@ -2,8 +2,9 @@ const nf = new Intl.NumberFormat("ko-KR");
 
 export const fmtInt = (n: number): string => nf.format(Math.round(n));
 
-/** 원 단위 금액을 조·억으로 줄여 쓴다. */
+/** 원 단위 금액을 조·억·만으로 줄여 쓴다. 음수는 앞에 -. */
 export function fmtKRW(won: number): string {
+  if (won < 0) return `-${fmtKRW(-won)}`;
   const eok = won / 1e8;
   if (eok >= 10000) return `${(eok / 10000).toFixed(1)}조`;
   if (eok >= 1) return `${fmtInt(eok)}억`;
