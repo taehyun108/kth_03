@@ -7,16 +7,51 @@
 
 | # | 할 일 | 시간 | 어디서 |
 |---|---|---|---|
+| 0 | 이 PC의 작업 폴더에 내려받기 | 10분 | 집 PC |
 | 1 | 기본 브랜치를 `main`으로 | 2분 | GitHub |
 | 2 | Supabase 프로젝트 만들고 SQL 실행 | 10분 | supabase.com |
 | 3 | NVIDIA 키 준비 | 5분 | build.nvidia.com |
 | 4 | GitHub 시크릿 등록 | 5분 | GitHub |
 | 5 | Actions 3개 수동 실행해 확인 | 15분 | GitHub |
 | 6 | Vercel에 배포 | 15분 | vercel.com |
-| 7 | 봇 코드 올리기 + 봇 토큰 재발급 | 10분 | 집 PC, 텔레그램 |
+| 7 | (선택·지금은 건너뛰어도 됨) 기존 봇 코드 올리기 + 토큰 재발급 | 10분 | 집 PC, 텔레그램 |
 | 8 | 저에게 알려 줄 것 | 5분 | Claude |
 
 ---
+
+## 0. 이 PC의 작업 폴더에 내려받기 (10분)
+작업 폴더: `C:\Users\taehy\OneDrive\바탕 화면\김태현\AWS_AI\증권 분석 앱_KTH03` (기존 봇 폴더 `Economybigin108_Bot`은 그대로 두고, 여기서 새로 이어갑니다.)
+
+먼저 설치돼 있는지 확인합니다. 둘 다 버전이 나오면 됩니다 (Node는 22 이상).
+```powershell
+git --version; node -v
+```
+- 없으면 Git은 https://git-scm.com , Node는 https://nodejs.org (LTS)에서 설치하세요.
+
+폴더를 **비어 있게** 만든 뒤 아래로 내려받습니다 (저장소가 공개라 로그인 없이 됩니다).
+```powershell
+cd "C:\Users\taehy\OneDrive\바탕 화면\김태현\AWS_AI\증권 분석 앱_KTH03"
+```
+```powershell
+git clone https://github.com/taehyun108/kth_03.git .
+```
+- 폴더가 비어 있지 않다는 오류가 나면: 안의 파일을 다른 곳으로 옮기고 다시 하거나, 상위 폴더에서 `git clone https://github.com/taehyun108/kth_03.git "증권 분석 앱_KTH03"` 를 실행하세요.
+
+웹 화면을 내 PC에서 먼저 띄워 봅니다 (키 없이 견본 데이터로 동작).
+```powershell
+cd dashboard
+```
+```powershell
+npm install
+```
+```powershell
+npm run dev
+```
+브라우저에서 http://localhost:3000 이 열리면 성공입니다 (순위, 종목 조회, 시장 토론, 좌측 상단 명언). 끄려면 Ctrl+C.
+
+> ⚠️ **OneDrive 주의**: 이 폴더는 OneDrive(바탕 화면) 안이라 `node_modules`(수천 개 파일)까지 동기화되어 느려질 수 있습니다. OneDrive 설정에서 이 폴더를 **동기화 제외**하거나, `dashboard\node_modules` 만이라도 제외하세요.
+
+그다음 Claude에서 새 세션을 시작하고 폴더를 이 작업 폴더로 고르면, 이어서 같은 프로젝트를 PC에서 직접 작업할 수 있습니다. 이 폴더는 GitHub `kth_03`과 연결돼 있어 푸시하면 같은 저장소에 올라갑니다.
 
 ## 1. GitHub: 기본 브랜치를 `main`으로 (2분)
 1. https://github.com/taehyun108/kth_03 → **Settings → General → Default branch** → `main` 선택 → Update.
@@ -86,8 +121,8 @@ kth_03 → **Actions** 탭 → 왼쪽에서 워크플로 선택 → **Run workfl
 - [ ] **시장 토론**: 산업 10개가 성장/보합/침체로 나뉘어 보입니다.
 - [ ] **좌측 상단**에 오늘의 명언이 보입니다.
 
-## 7. 집 PC: 기존 봇 코드 올리기 + 봇 토큰 재발급 (10분)
-이전 세션 기록에 봇 토큰이 노출됐으니 **재발급을 권장**합니다.
+## 7. (선택) 기존 봇 코드 올리기 + 봇 토큰 재발급 (10분)
+**지금은 기존 봇 폴더를 건드리지 않기로 했으니 건너뛰어도 됩니다.** 나중에 텔레그램 연동을 할 때 하세요. 다만 이전 세션 기록에 봇 토큰이 노출됐으니 **토큰 재발급(2번)만은 권장**합니다.
 
 1. **코드 올리기** (PowerShell). `.env`가 올라가지 않는지 마지막 줄로 꼭 확인하세요.
 ```powershell
