@@ -159,6 +159,7 @@ git branch -M bot-original; git remote add origin https://github.com/taehyun108/
 | "저장소(Supabase)가 연결되지 않아 AI 판단을 쓸 수 없습니다" | Vercel에 `SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY` 없음 | 6단계 환경변수 추가 후 Redeploy |
 | "재무 데이터를 불러오지 못했습니다" | Vercel 서버에서 야후가 막혔을 수 있음 | 제게 알려 주세요 (대체 방안 필요) |
 | "AI 판단을 받지 못했습니다 (NVIDIA HTTP …)" | 키 오류·모델 단종·무료 한도 | 키 확인, `NVIDIA_MODEL` 변경, 로그를 제게 |
+| "NVIDIA가 빈 답을 보냈습니다" | 기본 모델이 '생각만 하고 답을 안 주는' 추론 모델 | `dashboard` 폴더에서 `npm run nvidia:probe` → 추천된 `NVIDIA_MODEL=…` 한 줄을 `.env.local`(로컬) / Vercel·GitHub 변수(배포)에 넣기 |
 | "오늘 AI 호출 한도를 모두 사용했습니다" | 하루 상한(기본 300회) 도달 | 정상 동작입니다. 내일 다시, 또는 `AI_DAILY_CAP` 조정 |
 | 접속이 계속 503 | `DASHBOARD_PASSWORD` 비어 있음 | 6단계 환경변수 추가 후 Redeploy |
 | Actions 예약 실행이 안 돎 | 기본 브랜치가 `main`이 아님 (1단계), 또는 시크릿 미등록 (4단계) | 1·4단계 확인 |

@@ -10,7 +10,8 @@
     "test": "vitest run",
     "sync-investors": "node scripts/sync-investors.mjs",
     "judge:top": "tsx scripts/precompute-judgments.ts",
-    "debate:sectors": "tsx scripts/precompute-debates.ts"
+    "debate:sectors": "tsx scripts/precompute-debates.ts",
+    "nvidia:probe": "tsx scripts/probe-nvidia.ts"
   },
   "dependencies": {
     "next": "^15.5.0",

@@ -74,6 +74,29 @@ def test_other_http_error_and_network_error_and_empty_answer():
         empty("hi")
 
 
+def test_empty_answer_explains_cause_and_reasoning_fallback():
+    def body(msg, finish="stop"):
+        return _Resp(json.dumps({"choices": [{"finish_reason": finish, "message": msg}]}).encode())
+    cut = nl.make_llm(env={"NVIDIA_API_KEY": "k", "NVIDIA_MODEL": "m/think"},
+                      opener=lambda r, timeout: body({"content": "", "reasoning_content": "생각만"}, "length"))
+    with pytest.raises(nl.NvidiaError) as e:
+        cut("hi")
+    msg = str(e.value)
+    assert "m/think" in msg and "finish_reason=length" in msg and "생각 내용만 있음" in msg and "NVIDIA_MAX_TOKENS" in msg
+    # content 가 비었어도 추론 칸에 '판정:' 형식이 있으면 쓴다
+    ok = nl.make_llm(env={"NVIDIA_API_KEY": "k"}, opener=lambda r, timeout: body({"content": None, "reasoning_content": "판정: 중립\n확신도: 50"}))
+    assert "판정: 중립" in ok("hi")
+
+
+def test_max_tokens_env_is_sent():
+    seen = {}
+    def opener(req, timeout):
+        seen.update(json.loads(req.data.decode()))
+        return _ok("판정: 사자")
+    nl.make_llm(env={"NVIDIA_API_KEY": "k", "NVIDIA_MAX_TOKENS": "4096"}, opener=opener)("hi")
+    assert seen["max_tokens"] == 4096
+
+
 def test_no_key_raises_clear_error():
     with pytest.raises(nl.NvidiaError, match="NVIDIA_API_KEY"):
         nl.make_llm(env={})("hi")
