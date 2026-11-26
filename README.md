@@ -1,4 +1,23 @@
-# Economybigin108_Bot — 투자자 관점 종목 의견
+# Economy Begin
+
+한국 주식 거래량 순위·종목 조회·투자 대가(버핏·멍거·그레이엄·린치)의 AI 판단과 시장 토론을 보여 주는 웹 대시보드와,
+같은 투자자 관점을 텔레그램 봇에 붙이기 위한 모듈입니다.
+
+> **처음이라면 [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md)부터 보세요.** 계정·키·서버 설정처럼 사용자만 할 수 있는 일을 순서대로 정리했습니다.
+
+| 경로 | 내용 |
+|---|---|
+| `dashboard/` | 웹 대시보드 (Next.js + Supabase + GitHub Actions). 자세한 설명은 [`dashboard/README.md`](dashboard/README.md) |
+| `investors/*.md` | 투자자별 프롬프트 (웹·봇이 함께 씀). 파일 추가만으로 투자자가 늘어납니다 |
+| `investor_advisor.py` | 텔레그램 봇용 `종목 ○○` 처리 모듈 (파이썬) |
+| `nvidia_llm.py` | 봇이 NVIDIA를 부르는 모듈 (표준 라이브러리만 사용, 키 여러 개 순환) |
+| `tests/` | 파이썬 테스트 (`python -m pytest -q`) |
+| `.github/workflows/` | CI, 장중 시세 수집, 장 마감 후 종목 판단·산업 토론 |
+
+---
+
+# 텔레그램 봇 연동 (집 PC의 Economybigin108_Bot)
+
 
 텔레그램에서 `종목 삼성전자` 또는 `종목 반도체` 를 보내면, 등록된 투자자 전원의 관점으로
 사자·팔자·중립 판정과 확신도(0~100), 이유 3줄을 보내 줍니다.
@@ -26,7 +45,9 @@ investors/05_이름.md
 ```python
 import asyncio
 from investor_advisor import parse_stock_command, run_stock_command, ddgs_context
+from nvidia_llm import make_llm
 
+llm_call = make_llm()                      # NVIDIA_API_KEY 등은 봇의 .env 에서 읽는다 (파일 맨 위에서 한 번만 만들기)
 query = parse_stock_command(text)          # '종목 삼성전자' 또는 '/종목 삼성전자'
 if query:
     await update.message.reply_text("🔎 투자자들의 의견을 모으는 중이에요… (30초~1분)")
